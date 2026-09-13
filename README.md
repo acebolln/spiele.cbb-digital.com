@@ -99,11 +99,14 @@ game, in the code or in the title.
 
 ```
 Aya Spiele/
-├─ index.html              portal page listing the games
+├─ index.html              portal page listing the games (cbb-digital CI)
+├─ .nojekyll               keeps GitHub Pages from running Jekyll
 ├─ start-memory.cmd        launcher (Edge/Chrome kiosk window)
 ├─ shared/                 tokens + UI primitives for ALL games
-│  ├─ cbb-tokens.css       colours, radii, motion  <- swap in real CI here
-│  └─ kids-ui.css          toddler-proof defaults, buttons
+│  ├─ cbb-tokens.css       cbb CI + game palette + @font-face
+│  ├─ portal.css           the branded landing page
+│  ├─ kids-ui.css          toddler-proof defaults, buttons
+│  └─ fonts/               Space Grotesk + Inter, self-hosted
 ├─ games/
 │  └─ memory/
 │     ├─ index.html
@@ -183,13 +186,21 @@ version.
 
 ---
 
-## Open item
+## Two palettes, on purpose
 
-`shared/cbb-tokens.css` carries **placeholder** brand values under
-`--cbb-*`. The playful `--toy-*` palette and the per-theme variables are
-finished and intentionally separate — a kids' game should not be painted
-in corporate colours. Drop the real cbb-digital CI into the `--cbb-*`
-block when the portal page gets its proper design.
+`shared/cbb-tokens.css` holds both, and they are meant to stay apart:
+
+- `--cbb-*` is the real cbb-digital.com CI — petrol/mint, Space Grotesk
+  and Inter, 4px buttons, 10px cards — taken from the live site. Only
+  the portal uses it. If the main site's CI changes, update this block
+  and the portal follows.
+- `--toy-*` and the per-theme variables are the games' own palette. A
+  3-year-old's game should not be painted in corporate petrol, so the
+  brand stops at the front door.
+
+Fonts are self-hosted in `shared/fonts/`, mirroring what the main site
+does, so there is no third-party request to Google and no GDPR question
+to answer.
 
 ---
 

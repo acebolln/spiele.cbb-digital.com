@@ -190,3 +190,29 @@ version.
 finished and intentionally separate — a kids' game should not be painted
 in corporate colours. Drop the real cbb-digital CI into the `--cbb-*`
 block when the portal page gets its proper design.
+
+---
+
+## Hosting
+
+Live on GitHub Pages from `main` / root:
+**https://acebolln.github.io/spiele.cbb-digital.com/**
+
+`.nojekyll` is required: without it Pages runs the tree through Jekyll,
+which ignores paths beginning with `_` and needlessly rewrites files.
+
+### Putting it on spiele.cbb-digital.com
+
+1. At the DNS provider for `cbb-digital.com`, add a CNAME record:
+   `spiele` → `acebolln.github.io`
+2. Once it resolves, set the custom domain on the repository:
+   ```bash
+   gh api repos/acebolln/spiele.cbb-digital.com/pages -X PUT -f cname=spiele.cbb-digital.com
+   ```
+   That commits a `CNAME` file. Do it only after step 1 — with the file
+   in place but DNS missing, Pages serves nothing at either address.
+3. Enable "Enforce HTTPS" once the certificate is issued.
+
+Per-game subdomains (`memory.cbb-digital.com`) are the other option and
+need no extra work here: `node tools/build.js memory` produces a
+self-contained `dist/memory/` for any static host.

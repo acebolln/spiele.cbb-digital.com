@@ -5,6 +5,11 @@
    site. The games behind it are free to look like toys.
    ============================================================ */
 
+/* The portal does not load kids-ui.css, so it needs its own reset.
+   Without it, `width:100%` plus padding made <main> wider than the
+   viewport and the stage's overflow:hidden quietly clipped the text. */
+*, *::before, *::after { box-sizing: border-box; }
+
 html, body { overflow: auto; height: auto; min-height: 100%; }
 
 body {

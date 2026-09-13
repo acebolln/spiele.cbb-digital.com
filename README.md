@@ -209,6 +209,11 @@ step.
 - Vercel project: `spiele-cbb-digital`
 - Manual deploy if ever needed: `vercel deploy --prod`
 
+The domain is registered as a **project domain**, so every production
+deployment picks it up. Do not attach it with `vercel alias set`: that
+pins it to one specific deployment, and the next push then goes live on
+the deployment URL while the domain keeps serving the old build.
+
 `vercel.json` sets the headers that matter for a PWA: `sw.js` must
 revalidate (otherwise a new service worker can take weeks to reach
 anyone who already opened the game), fonts are immutable for a year,

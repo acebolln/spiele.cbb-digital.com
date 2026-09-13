@@ -372,19 +372,15 @@
            Math.abs(window.innerHeight - screen.height) <= 2;
   }
 
-  // Starting a round goes fullscreen: coming from the portal the game
-  // should take over the screen, and a level tap is a real user gesture
-  // so the request is allowed. Silent when it is not possible or when
-  // the window already covers the screen (the launcher case).
-  function enterFullscreenIfUseful() {
-    if (fsBroken || !fsSupported()) return;
-    if (fsElement() || windowFillsScreen()) return;
-    try {
-      var de = document.documentElement;
-      var p = (de.requestFullscreen || de.webkitRequestFullscreen).call(de);
-      if (p && p.catch) p.catch(function () {});
-    } catch (e) { /* not important enough to bother anyone with */ }
-  }
+  // Starting a round used to request fullscreen automatically. Browsers
+  // answer element fullscreen with a permanent "swipe down to exit"
+  // overlay that no page is allowed to suppress - it is a safety feature
+  // so a site cannot trap you. That banner sat over the board the whole
+  // time, so the automatic request is gone.
+  //
+  // The banner-free route to real fullscreen is installing the page:
+  // the manifest declares display:fullscreen, so an installed copy runs
+  // without any browser UI at all. See maybeOfferInstall().
 
   function toggleFullscreen() {
     var de = document.documentElement;
@@ -414,6 +410,46 @@
     el.full.setAttribute('aria-label', on ? 'Vollbild beenden' : 'Vollbild starten');
   }
 
+  /* ---------- install ------------------------------------------------- */
+
+  // An installed copy runs with display:fullscreen from the manifest:
+  // no browser UI, no exit-fullscreen banner, and it keeps working
+  // offline. That is the only way to get real fullscreen without the
+  // overlay, so offer it when the browser says it is possible.
+  var installPrompt = null;
+
+  function runningInstalled() {
+    return (window.matchMedia &&
+            (window.matchMedia('(display-mode: standalone)').matches ||
+             window.matchMedia('(display-mode: fullscreen)').matches)) ||
+           window.navigator.standalone === true;
+  }
+
+  function maybeOfferInstall() {
+    if (runningInstalled()) return;             // already installed
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      installPrompt = e;
+      el.install.hidden = false;
+    });
+
+    window.addEventListener('appinstalled', function () {
+      installPrompt = null;
+      el.install.hidden = true;
+    });
+
+    el.install.addEventListener('click', function () {
+      if (!installPrompt) return;
+      window.Sfx.tap();
+      installPrompt.prompt();
+      installPrompt.userChoice.then(function () {
+        installPrompt = null;
+        el.install.hidden = true;
+      });
+    });
+  }
+
   /* ---------- sound button -------------------------------------------- */
 
   function syncSoundButton() {
@@ -435,6 +471,7 @@
     el.fx       = $('#fx');
     el.sound    = $('#btn-sound');
     el.full     = $('#btn-full');
+    el.install  = $('#btn-install');
     el.title    = $('#title');
     el.winHero  = $('#win-hero');
 
@@ -462,10 +499,7 @@
       b.addEventListener('pointerdown', function () {
         window.Sfx.unlock(); window.Sfx.tap();
       });
-      b.addEventListener('click', function () {
-        enterFullscreenIfUseful();
-        startRound(i);
-      });
+      b.addEventListener('click', function () { startRound(i); });
       levelHost.appendChild(b);
     });
 
@@ -487,6 +521,7 @@
 
     syncSoundButton();
     syncFullscreenButton();
+    maybeOfferInstall();
 
     ['fullscreenchange', 'webkitfullscreenchange'].forEach(function (ev) {
       document.addEventListener(ev, function () {

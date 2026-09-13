@@ -141,15 +141,49 @@ A note on the `animation` shorthand: only **two** time values are allowed
 per animation (duration, delay). A third silently invalidates the whole
 declaration and every animation on the element disappears.
 
+### Navigation
+
+Three levels, each with exactly one way back:
+
+| Where              | Back control                            |
+|--------------------|-----------------------------------------|
+| portal             | —                                       |
+| game start screen  | "Alle Spiele" → portal                  |
+| a round in play    | house icon → game start screen          |
+
+The link to the portal sits on the start screen only. Inside a round a
+child must not be one stray tap away from leaving the game.
+
 ### Fullscreen
 
-The button hides itself in two cases, both on purpose:
+There is no automatic fullscreen. Requesting element fullscreen makes
+the browser show a permanent "swipe down to exit" overlay that no page
+is allowed to suppress — it is a safety feature so a site cannot trap
+you. That banner sat over the board for the whole round.
+
+The banner-free route is installing the page: the manifest declares
+`display: fullscreen`, so an installed copy runs with no browser UI at
+all. The start screen offers this ("Aufs Tablet legen") whenever the
+browser reports the app as installable.
+
+The manual fullscreen button hides itself in two cases, both on purpose:
 
 - the platform has no element fullscreen (iOS Safari) — a dead button is
   worse than no button;
 - the window already fills the screen, which is what `start-memory.cmd`
   produces with `--start-fullscreen`. `requestFullscreen()` then changes
   nothing visible, and a button that does nothing reads as broken.
+
+### Service worker strategy
+
+Split by what the file is, and the split matters:
+
+- **code** (HTML, CSS, JS, manifest): network first, cache as fallback.
+  A pure cache-first worker served the previous version until the second
+  visit, so a fix shipped today only appeared tomorrow. Online you now
+  always get the current build; offline you still get the last good one.
+- **assets** (fonts, icons, images): cache first. Big, never changed in
+  place, and a round trip for them would slow the start for nothing.
 
 ---
 

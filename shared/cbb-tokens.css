@@ -2,18 +2,57 @@
    cbb-digital.com — shared design tokens
    Used by every game under *.cbb-digital.com
    ------------------------------------------------------------
-   TODO(christian): replace the PLACEHOLDER brand values below
-   with the real cbb-digital CI once available. Everything else
-   in this file (spacing, radii, motion) is safe to keep.
+   The --cbb-* block below is the real cbb-digital.com CI, taken
+   from the live site so the games portal matches it exactly.
+   Keep the German token names: they are the brand's own
+   vocabulary and staying consistent with it is the point.
+
+   The --toy-* palette further down is deliberately separate. The
+   portal wears the brand; the games themselves do not - corporate
+   petrol is the wrong palette for a 3-year-old.
    ============================================================ */
 
+/* Self-hosted, same as the main site - no Google Fonts request,
+   so no third-party call and no GDPR question to answer. */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('fonts/space-grotesk-latin-500-normal.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('fonts/space-grotesk-latin-700-normal.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-latin-400-normal.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-latin-600-normal.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
 :root {
-  /* --- Brand (PLACEHOLDER) ------------------------------- */
-  --cbb-brand:        #1f6feb;
-  --cbb-brand-dark:   #12489c;
-  --cbb-ink:          #16141f;
-  --cbb-paper:        #ffffff;
-  --cbb-muted:        #6b6878;
+  /* --- cbb-digital CI ------------------------------------- */
+  --cbb-tiefe:     #04262B;
+  --cbb-kern:      #0E5450;
+  --cbb-auftrieb:  #1C8377;
+  --cbb-signal:    #93EFD4;
+  --cbb-papier:    #FBFAF7;
+  --cbb-text:      #1A1A1A;
+  --cbb-verlauf:   linear-gradient(135deg, #04262B 0%, #0E5450 55%, #1C8377 100%);
+
+  --cbb-disp:  'Space Grotesk', 'Segoe UI', sans-serif;
+  --cbb-body:  Inter, 'Segoe UI', sans-serif;
+
+  --cbb-r-btn:   4px;
+  --cbb-r-card: 10px;
+  --cbb-s-block: 24px;
+  --cbb-s-innen: 16px;
+  --cbb-s-zeile:  8px;
 
   /* --- Playful palette (kids games) ----------------------- */
   --toy-red:      #ff5a5a;

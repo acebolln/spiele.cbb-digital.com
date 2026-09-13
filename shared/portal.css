@@ -1,0 +1,228 @@
+/* ============================================================
+   portal.css - the cbb-digital-branded landing page.
+   This is the one surface that wears the brand: dark petrol,
+   Space Grotesk, mint accent, the circuit motif from the main
+   site. The games behind it are free to look like toys.
+   ============================================================ */
+
+html, body { overflow: auto; height: auto; min-height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cbb-tiefe);
+  color: #EAF4F1;
+  font-family: var(--cbb-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- circuit backdrop ---------- */
+
+.stage {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--cbb-verlauf);
+}
+.stage::after {                      /* vignette so text stays readable */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 15% 20%, rgba(4,38,43,.55) 0%, rgba(4,38,43,0) 60%);
+  pointer-events: none;
+}
+
+.circuit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .55;
+}
+.circuit path { fill: none; stroke: var(--cbb-signal); stroke-width: 1.2; opacity: .32; }
+.circuit circle { fill: var(--cbb-signal); }
+.circuit .node-glow { opacity: .22; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .circuit .pulse { animation: pulse 4.5s ease-in-out infinite; transform-origin: center; }
+  .circuit .pulse:nth-of-type(2) { animation-delay: -1.5s; }
+  .circuit .pulse:nth-of-type(3) { animation-delay: -3s; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: .18; }
+  50%      { opacity: .5; }
+}
+
+/* ---------- header ---------- */
+
+.bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: clamp(16px, 2.4vw, 26px) clamp(18px, 4vw, 54px);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--cbb-disp);
+  font-weight: 700;
+  font-size: clamp(15px, 1.5vw, 18px);
+  letter-spacing: -.01em;
+}
+.brand svg { width: 20px; height: 20px; stroke: var(--cbb-signal); fill: none; stroke-width: 1.6; }
+.bar .spacer { flex: 1; }
+.bar a.back {
+  color: rgba(234,244,241,.72);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+.bar a.back:hover { color: #fff; }
+
+/* ---------- hero ---------- */
+
+main {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 5vh, 60px) clamp(18px, 4vw, 54px) clamp(30px, 6vh, 70px);
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 var(--cbb-s-zeile);
+  font-family: var(--cbb-disp);
+  font-weight: 700;
+  font-size: clamp(34px, 5.6vw, 60px);
+  line-height: 1.14;
+  color: #fff;
+  letter-spacing: -.015em;
+}
+h1 em {
+  font-style: normal;
+  color: rgba(234,244,241,.46);
+  display: block;
+}
+.lead {
+  margin: 0 0 clamp(28px, 5vh, 52px);
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.6;
+  color: rgba(234,244,241,.76);
+  max-width: 46ch;
+}
+
+/* ---------- game cards ---------- */
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: var(--cbb-s-block);
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  gap: var(--cbb-s-innen);
+  padding: var(--cbb-s-innen);
+  border-radius: var(--cbb-r-card);
+  background: rgba(251,250,247,.05);
+  border: 1px solid rgba(147,239,212,.18);
+  color: inherit;
+  text-decoration: none;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.game:hover {
+  background: rgba(251,250,247,.09);
+  border-color: rgba(147,239,212,.45);
+  transform: translateY(-2px);
+}
+.game:focus-visible { outline: 2px solid var(--cbb-signal); outline-offset: 3px; }
+
+.game .thumb {
+  flex: 0 0 auto;
+  width: 62px;
+  height: 62px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #BFE8FF;
+}
+.game .thumb img { width: 100%; height: 100%; display: block; }
+
+.game .meta { min-width: 0; }
+.game .meta b {
+  display: block;
+  font-family: var(--cbb-disp);
+  font-weight: 700;
+  font-size: 19px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.game .meta span {
+  display: block;
+  font-size: 14px;
+  color: rgba(234,244,241,.66);
+}
+.game .go {
+  margin-left: auto;
+  flex: 0 0 auto;
+  color: var(--cbb-signal);
+  font-size: 18px;
+  transform: translateX(0);
+  transition: transform .18s ease;
+}
+.game:hover .go { transform: translateX(3px); }
+
+/* Placeholder slot for the next game. */
+.game.soon {
+  border-style: dashed;
+  border-color: rgba(147,239,212,.16);
+  background: transparent;
+  cursor: default;
+}
+.game.soon:hover { transform: none; background: transparent; border-color: rgba(147,239,212,.16); }
+.game.soon .thumb {
+  background: rgba(147,239,212,.08);
+  display: grid;
+  place-items: center;
+  color: rgba(147,239,212,.5);
+  font-size: 26px;
+  font-family: var(--cbb-disp);
+}
+.game.soon .meta b { color: rgba(234,244,241,.55); }
+
+/* ---------- footer ---------- */
+
+footer {
+  position: relative;
+  z-index: 2;
+  padding: clamp(16px, 2.4vw, 26px) clamp(18px, 4vw, 54px);
+  border-top: 1px solid rgba(147,239,212,.12);
+  font-size: 13px;
+  color: rgba(234,244,241,.5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  align-items: center;
+}
+footer a { color: rgba(234,244,241,.72); text-decoration: none; font-weight: 600; }
+footer a:hover { color: var(--cbb-signal); }
+footer .spacer { flex: 1; }
+
+@media (max-width: 560px) {
+  .games { grid-template-columns: 1fr; }
+  footer { flex-direction: column; align-items: flex-start; }
+}

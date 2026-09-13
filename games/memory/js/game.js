@@ -372,6 +372,20 @@
            Math.abs(window.innerHeight - screen.height) <= 2;
   }
 
+  // Starting a round goes fullscreen: coming from the portal the game
+  // should take over the screen, and a level tap is a real user gesture
+  // so the request is allowed. Silent when it is not possible or when
+  // the window already covers the screen (the launcher case).
+  function enterFullscreenIfUseful() {
+    if (fsBroken || !fsSupported()) return;
+    if (fsElement() || windowFillsScreen()) return;
+    try {
+      var de = document.documentElement;
+      var p = (de.requestFullscreen || de.webkitRequestFullscreen).call(de);
+      if (p && p.catch) p.catch(function () {});
+    } catch (e) { /* not important enough to bother anyone with */ }
+  }
+
   function toggleFullscreen() {
     var de = document.documentElement;
     try {
@@ -448,7 +462,10 @@
       b.addEventListener('pointerdown', function () {
         window.Sfx.unlock(); window.Sfx.tap();
       });
-      b.addEventListener('click', function () { startRound(i); });
+      b.addEventListener('click', function () {
+        enterFullscreenIfUseful();
+        startRound(i);
+      });
       levelHost.appendChild(b);
     });
 

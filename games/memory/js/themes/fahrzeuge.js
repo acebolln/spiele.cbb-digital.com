@@ -155,7 +155,7 @@
     },
     {
       id: 'ballon',
-      name: 'Der Heissluftballon',
+      name: 'Der Heißluftballon',
       bg: '#FFF0F5',
       svg: '<svg viewBox="0 0 100 100">' +
         '<path d="M50 8q26 0 26 28 0 18-26 34Q24 54 24 36 24 8 50 8z" fill="#F5C93F"/>' +

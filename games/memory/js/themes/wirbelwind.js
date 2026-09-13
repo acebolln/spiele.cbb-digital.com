@@ -34,7 +34,7 @@
   var MOTIFS = [
     {
       id: 'maedchen',
-      name: 'Das freche Maedchen',
+      name: 'Das freche Mädchen',
       bg: '#FFE3EC',
       // Braids are built from shrinking overlapping circles so they read
       // as plaited strands; as smooth blobs they looked like headphones.

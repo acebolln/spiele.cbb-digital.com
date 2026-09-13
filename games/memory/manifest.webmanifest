@@ -1,7 +1,7 @@
 {
   "name": "Ayas Memory",
   "short_name": "Memory",
-  "description": "Ein Memory-Spiel fuer kleine Kinder - Maus und Touchscreen.",
+  "description": "Ein Memory-Spiel für kleine Kinder - Maus und Touchscreen.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

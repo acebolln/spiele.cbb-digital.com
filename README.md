@@ -1,8 +1,8 @@
 # Aya Spiele
 
-Small browser games for Aya, built to run offline on the PC and to be
-published under `cbb-digital.com` subdomains — one subdomain per game,
-starting with `memory.cbb-digital.com`.
+Small browser games for Aya, built to run offline on the PC and hosted
+at **[spiele.cbb-digital.com](https://spiele.cbb-digital.com)** — the
+landing site for every mini app built for her.
 
 First game: **Memory**, for a 3-year-old, with two picture themes.
 
@@ -100,7 +100,7 @@ game, in the code or in the title.
 ```
 Aya Spiele/
 ├─ index.html              portal page listing the games (cbb-digital CI)
-├─ .nojekyll               keeps GitHub Pages from running Jekyll
+├─ vercel.json             cache headers (service worker, fonts)
 ├─ start-memory.cmd        launcher (Edge/Chrome kiosk window)
 ├─ shared/                 tokens + UI primitives for ALL games
 │  ├─ cbb-tokens.css       cbb CI + game palette + @font-face
@@ -166,23 +166,36 @@ localhost, so offline mode can only be tested here, not from `file://`.
 
 ## Deploying
 
-`shared/` sits outside the game folder, so the game folder alone is not
-uploadable. The build flattens it in and rewrites the links:
+Hosted on Vercel, where `cbb-digital.com` is registered and
+nameservered. The project sits next to the other `*.cbb-digital.com`
+apps and **redeploys automatically on every push to `main`** — no manual
+step.
+
+- Production: https://spiele.cbb-digital.com
+- Vercel project: `spiele-cbb-digital`
+- Manual deploy if ever needed: `vercel deploy --prod`
+
+`vercel.json` sets the headers that matter for a PWA: `sw.js` must
+revalidate (otherwise a new service worker can take weeks to reach
+anyone who already opened the game), fonts are immutable for a year,
+and the manifest gets its proper content type.
+
+After changing any file under `games/memory/`, bump `CACHE` in
+`games/memory/sw.js` — otherwise returning visitors keep the cached old
+version.
+
+### A game on its own subdomain
+
+Not needed for the current setup, but supported. `shared/` sits outside
+the game folder, so the game folder alone is not uploadable; the build
+flattens it in and rewrites the links:
 
 ```bash
 node tools/build.js memory
 ```
 
-Upload the **contents** of `dist/memory/` to the subdomain root. Fully
-static — any host will do. Run `node tools/build.js` with no argument to
-build every game.
-
-For GitHub Pages, publish the repository root instead: `index.html` is
-the portal and the relative paths already work from a subdirectory.
-
-After changing any file under `games/memory/`, bump `CACHE` in
-`games/memory/sw.js` — otherwise returning visitors keep the cached old
-version.
+Upload the **contents** of `dist/memory/` to any static host. Run
+`node tools/build.js` with no argument to build every game.
 
 ---
 
@@ -201,29 +214,3 @@ version.
 Fonts are self-hosted in `shared/fonts/`, mirroring what the main site
 does, so there is no third-party request to Google and no GDPR question
 to answer.
-
----
-
-## Hosting
-
-Live on GitHub Pages from `main` / root:
-**https://acebolln.github.io/spiele.cbb-digital.com/**
-
-`.nojekyll` is required: without it Pages runs the tree through Jekyll,
-which ignores paths beginning with `_` and needlessly rewrites files.
-
-### Putting it on spiele.cbb-digital.com
-
-1. At the DNS provider for `cbb-digital.com`, add a CNAME record:
-   `spiele` → `acebolln.github.io`
-2. Once it resolves, set the custom domain on the repository:
-   ```bash
-   gh api repos/acebolln/spiele.cbb-digital.com/pages -X PUT -f cname=spiele.cbb-digital.com
-   ```
-   That commits a `CNAME` file. Do it only after step 1 — with the file
-   in place but DNS missing, Pages serves nothing at either address.
-3. Enable "Enforce HTTPS" once the certificate is issued.
-
-Per-game subdomains (`memory.cbb-digital.com`) are the other option and
-need no extra work here: `node tools/build.js memory` produces a
-self-contained `dist/memory/` for any static host.

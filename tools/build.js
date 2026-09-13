@@ -23,6 +23,10 @@ var GAMES  = path.join(ROOT, 'games');
 var SHARED = path.join(ROOT, 'shared');
 var DIST   = path.join(ROOT, 'dist');
 
+// Where the games overview lives. A standalone build has no portal of
+// its own, so in-game links back to it must be absolute.
+var PORTAL = 'https://spiele.cbb-digital.com/';
+
 // Developer docs are for the repository, not for the deployment.
 var SKIP = /\.md$/i;
 
@@ -49,7 +53,12 @@ function build(name) {
   copyDir(src, out);
   copyDir(SHARED, path.join(out, 'shared'));
 
-  // Rewrite ../../shared/ -> shared/ in every text file we ship.
+  // A standalone build is served from its own domain root, so every
+  // path that escapes the game folder has to be rewritten.
+  //
+  //   ../../shared/      -> shared/           (flattened in above)
+  //   ../../index.html   -> PORTAL            (the portal is not part
+  //                                            of this deployment)
   var rewritten = 0;
   (function walk(dir) {
     fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
@@ -57,8 +66,22 @@ function build(name) {
       if (e.isDirectory()) return walk(p);
       if (!/\.(html|css|js)$/i.test(e.name)) return;
       var txt = fs.readFileSync(p, 'utf8');
-      var next = txt.split('../../shared/').join('shared/');
+      var next = txt
+        .split('../../shared/').join('shared/')
+        .split('../../index.html').join(PORTAL);
       if (next !== txt) { fs.writeFileSync(p, next); rewritten++; }
+    });
+  })(out);
+
+  // Nothing may still point outside the deployment root.
+  (function check(dir) {
+    fs.readdirSync(dir, { withFileTypes: true }).forEach(function (e) {
+      var p = path.join(dir, e.name);
+      if (e.isDirectory()) return check(p);
+      if (!/\.(html|css|js)$/i.test(e.name)) return;
+      if (fs.readFileSync(p, 'utf8').indexOf('../../') !== -1) {
+        throw new Error('escapes the deployment root: ' + path.relative(out, p));
+      }
     });
   })(out);
 

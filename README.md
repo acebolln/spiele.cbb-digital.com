@@ -6,6 +6,11 @@ landing site for every mini app built for her.
 
 First game: **Memory**, for a 3-year-old, with two picture themes.
 
+- **[CLAUDE.md](CLAUDE.md)** — how this project is worked on: conventions,
+  adding a theme, adding a game, and the pitfalls that already cost time.
+- **[docs/progress.md](docs/progress.md)** — where the project stands and
+  what happened when.
+
 ---
 
 ## Play it

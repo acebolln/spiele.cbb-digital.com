@@ -13,12 +13,19 @@ Browserspiele für Aya (3 Jahre). Live unter **https://spiele.cbb-digital.com**.
 | Was | Sprache |
 |-----|---------|
 | Alles auf dem Bildschirm (UI, aria-labels, Manifest) | **Deutsch**, mit echten Umlauten |
-| Code, Kommentare, Commits, Doku, Dateinamen | **Englisch** |
+| **Commit-Nachrichten** | **Deutsch** |
+| Code, Kommentare, Doku, Dateinamen | **Englisch** |
 
-Aya spricht Deutsch — die Oberfläche muss Deutsch sein. Alles andere folgt
-der globalen Regel aus `~/Documents/CLAUDE.md` (Artefakte = Englisch).
+Aya spricht Deutsch — die Oberfläche muss Deutsch sein.
+
+Commit-Nachrichten sind auf Wunsch des Nutzers deutsch (13.09.2026) und
+überschreiben damit für dieses Projekt die globale Artefakt-Regel aus
+`~/Documents/CLAUDE.md`. Die ersten neun Commits sind noch englisch — die
+Historie bleibt, wie sie ist.
+
 ASCII-Ersatzschreibweisen („fuer", „Zurueck") sind ein Fehler, keine
-Vorsichtsmaßnahme: Die Dateien sind UTF-8 und deklarieren das.
+Vorsichtsmaßnahme: Die Dateien sind UTF-8 und deklarieren das. Das gilt
+auch für Commit-Nachrichten.
 
 ---
 

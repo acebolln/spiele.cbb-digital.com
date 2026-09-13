@@ -122,19 +122,19 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 9px 15px 9px 10px;
-  min-height: 40px;
+  padding: 10px 17px 10px 12px;
+  min-height: 44px;
   border-radius: var(--r-pill);
-  background: rgba(255,255,255,.66);
-  color: #5C5770;
+  background: #fff;
+  color: var(--toy-ink);
   text-decoration: none;
-  box-shadow: 0 2px 0 rgba(0,0,0,.08);
+  box-shadow: 0 3px 0 rgba(0,0,0,.14), 0 6px 14px rgba(0,0,0,.10);
   transition: background var(--dur-fast) var(--ease-out),
               transform var(--dur-fast) var(--ease-spring),
               color var(--dur-fast) var(--ease-out);
   touch-action: manipulation;
 }
-.back-link:hover  { background: #fff; color: var(--toy-ink); transform: translateY(-2px); }
+.back-link:hover  { color: var(--toy-red); transform: translateY(-2px); }
 .back-link:active { transform: translateY(1px); }
 .back-link:focus-visible { outline: 4px solid var(--toy-ink); outline-offset: 3px; }
 .back-link svg { width: 19px; height: 19px; flex: none; }

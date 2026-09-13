@@ -18,7 +18,7 @@
    Bump CACHE when the file list changes, to drop stale entries.
    ============================================================ */
 
-var CACHE = 'aya-memory-v3';
+var CACHE = 'aya-memory-v4';
 
 var ASSETS = [
   './',

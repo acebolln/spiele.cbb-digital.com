@@ -1,0 +1,67 @@
+/* ============================================================
+   cbb-digital.com — shared design tokens
+   Used by every game under *.cbb-digital.com
+   ------------------------------------------------------------
+   TODO(christian): replace the PLACEHOLDER brand values below
+   with the real cbb-digital CI once available. Everything else
+   in this file (spacing, radii, motion) is safe to keep.
+   ============================================================ */
+
+:root {
+  /* --- Brand (PLACEHOLDER) ------------------------------- */
+  --cbb-brand:        #1f6feb;
+  --cbb-brand-dark:   #12489c;
+  --cbb-ink:          #16141f;
+  --cbb-paper:        #ffffff;
+  --cbb-muted:        #6b6878;
+
+  /* --- Playful palette (kids games) ----------------------- */
+  --toy-red:      #ff5a5a;
+  --toy-red-dk:   #d83a3a;
+  --toy-yellow:   #ffc93c;
+  --toy-orange:   #f2622b;
+  --toy-blue:     #3fa7e0;
+  --toy-blue-dk:  #2a7fb0;
+  --toy-green:    #57c785;
+  --toy-plum:     #8a63c9;
+  --toy-pink:     #ff8fb1;
+  --toy-cream:    #fff6e5;
+  --toy-sand:     #ffe9c2;
+  --toy-ink:      #2e2a3b;
+  --toy-gold:     #f3b52c;
+
+  /* --- Themeable surface ----------------------------------
+     A game theme overwrites these at runtime (see themes.js).
+     The values here are the fallback, so the page still looks
+     right if a theme fails to load.                          */
+  --sky-top:    #BFE8FF;
+  --sky-mid:    #DDF1FF;
+  --sky-bottom: #FFF6E5;
+  --meadow:     #57C785;
+  --back-a:     #FF5A5A;
+  --back-b:     #FFF3F3;
+  --back-badge: #F3B52C;
+  --title-ink:  #FF5A5A;
+  --accent:     #3FA7E0;
+
+  /* --- Geometry ------------------------------------------- */
+  --r-sm: 10px;
+  --r-md: 18px;
+  --r-lg: 28px;
+  --r-pill: 999px;
+
+  /* --- Motion --------------------------------------------- */
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease-out:    cubic-bezier(.22, .61, .36, 1);
+  --dur-fast:   160ms;
+  --dur-med:    340ms;
+  --dur-flip:   460ms;
+
+  /* --- Depth ---------------------------------------------- */
+  --shadow-card: 0 6px 0 rgba(0,0,0,.14), 0 12px 24px rgba(0,0,0,.18);
+  --shadow-lift: 0 10px 0 rgba(0,0,0,.14), 0 20px 36px rgba(0,0,0,.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 1ms; --dur-med: 1ms; --dur-flip: 1ms; }
+}

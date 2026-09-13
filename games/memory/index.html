@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#BFE8FF">
+<meta name="description" content="Ein Memory-Spiel fuer kleine Kinder - Maus und Touchscreen.">
+<title>Ayas Wirbelwind-Memory</title>
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+
+<link rel="stylesheet" href="../../shared/cbb-tokens.css">
+<link rel="stylesheet" href="../../shared/kids-ui.css">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+</div>
+
+<div class="app">
+
+  <!-- ============ START ============ -->
+  <section id="screen-start" class="screen" aria-label="Spiel starten">
+    <h1 id="title" class="title">Memory</h1>
+    <p class="subtitle">Such die Paare! Wie viele Karten sollen es sein?</p>
+    <div id="levels"></div>
+    <div id="themes" class="themes" role="group" aria-label="Bilder auswaehlen"></div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="screen-game" class="screen" aria-label="Spielfeld" aria-hidden="true">
+    <header class="topbar">
+      <button id="btn-home" class="icon-btn" type="button" aria-label="Zurueck zur Auswahl">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3z"/>
+        </svg>
+      </button>
+
+      <div id="progress" class="progress" role="img" aria-label="Fortschritt"></div>
+
+      <div class="topbar-right">
+        <button id="btn-sound" class="icon-btn" type="button" aria-pressed="false" aria-label="Ton ausschalten">
+          <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M4 9v6h4l5 4V5L8 9zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4m-2.5 7.9A7 7 0 0 0 14 4.1v2.1a5 5 0 0 1 0 9.6z"/>
+          </svg>
+          <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M4 9v6h4l5 4V5L8 9zm17 1.4L19.6 9 17 11.6 14.4 9 13 10.4l2.6 2.6L13 15.6 14.4 17 17 14.4 19.6 17 21 15.6 18.4 13z"/>
+          </svg>
+        </button>
+
+        <button id="btn-full" class="icon-btn" type="button" aria-pressed="false" aria-label="Vollbild starten">
+          <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M3 3h7v2.6H5.6V10H3zm11 0h7v7h-2.6V5.6H14zM3 14h2.6v4.4H10V21H3zm15.4 0H21v7h-7v-2.6h4.4z"/>
+          </svg>
+          <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M10 3v7H3V7.4h4.4V3zm4 0h2.6v4.4H21V10h-7zM3 14h7v7H7.4v-4.4H3zm11 0h7v2.6h-4.4V21H14z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div id="board">
+      <div id="grid" class="grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ WIN ============ -->
+  <section id="screen-win" class="screen" aria-label="Geschafft" aria-hidden="true">
+    <div id="win-hero" class="win-hero" aria-hidden="true"></div>
+    <h2 class="win-title">Geschafft!</h2>
+    <div class="win-actions">
+      <button id="btn-again" class="kid-btn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 5V2L7.5 6.5 12 11V8a5 5 0 1 1-5 5H4a8 8 0 1 0 8-8"/>
+        </svg>
+        Nochmal
+      </button>
+      <button id="btn-other" class="kid-btn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/>
+        </svg>
+        Andere Karten
+      </button>
+    </div>
+  </section>
+
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div id="fx" aria-hidden="true"></div>
+
+<!-- registry first, then one file per theme -->
+<script src="js/themes.js"></script>
+<script src="js/themes/wirbelwind.js"></script>
+<script src="js/themes/fahrzeuge.js"></script>
+
+<script src="js/audio.js"></script>
+<script src="js/confetti.js"></script>
+<script src="js/game.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

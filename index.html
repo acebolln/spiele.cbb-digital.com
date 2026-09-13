@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#BFE8FF">
+<title>Ayas Spiele</title>
+<link rel="icon" href="games/memory/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="shared/cbb-tokens.css">
+<link rel="stylesheet" href="shared/kids-ui.css">
+<style>
+  html, body { overflow: auto; }
+  body {
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    padding: max(6vh, env(safe-area-inset-top)) 6vw max(6vh, env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-bottom) 100%);
+  }
+  .wrap { text-align: center; max-width: 900px; }
+  h1 {
+    margin: 0 0 .2em;
+    font-size: clamp(32px, 6.5vw, 64px);
+    font-weight: 900;
+    color: var(--title-ink);
+    text-shadow: 0 4px 0 #fff, 0 7px 0 rgba(0,0,0,.12);
+  }
+  p.lead { margin: 0 0 clamp(22px, 4vh, 44px); font-size: clamp(15px, 2.2vw, 21px); color: #6A6478; font-weight: 700; }
+
+  .games { display: flex; flex-wrap: wrap; gap: clamp(14px, 3vw, 28px); justify-content: center; }
+  .game {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    text-decoration: none; color: inherit;
+    padding: clamp(16px, 2.4vw, 26px);
+    border-radius: var(--r-lg);
+    background: #fff;
+    box-shadow: 0 7px 0 rgba(0,0,0,.13), 0 14px 26px rgba(0,0,0,.12);
+    transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
+    min-width: clamp(180px, 26vw, 240px);
+  }
+  .game:hover  { transform: translateY(-6px); box-shadow: 0 13px 0 rgba(0,0,0,.13), 0 20px 32px rgba(0,0,0,.14); }
+  .game:active { transform: translateY(3px); box-shadow: 0 3px 0 rgba(0,0,0,.13); }
+  .game:focus-visible { outline: 5px solid var(--toy-ink); outline-offset: 4px; }
+  .game img { width: clamp(96px, 14vw, 132px); height: auto; border-radius: 22%; }
+  .game b { font-size: clamp(19px, 2.6vw, 26px); font-weight: 900; }
+  .game span { font-size: clamp(13px, 1.7vw, 16px); color: #6A6478; font-weight: 700; }
+
+  footer { margin-top: clamp(28px, 6vh, 56px); font-size: 13px; color: #8A8698; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Ayas Spiele</h1>
+    <p class="lead">Kleine Spiele zum Antippen und Klicken.</p>
+
+    <div class="games">
+      <a class="game" href="games/memory/">
+        <img src="games/memory/icons/icon.svg" alt="">
+        <b>Memory</b>
+        <span>Such die Paare</span>
+      </a>
+      <!-- next game goes here -->
+    </div>
+
+    <footer>cbb-digital.com</footer>
+  </div>
+</body>
+</html>

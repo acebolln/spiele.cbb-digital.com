@@ -1,0 +1,8 @@
+# build output - regenerate with: node tools/build.js
+dist/
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store
+*.swp
